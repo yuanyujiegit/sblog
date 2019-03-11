@@ -24,9 +24,15 @@
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "**/*",
+                "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
+                "output": "/assets/"
+              }
             ],
             "styles": [
+              "src/theme.less",
               "src/styles.styl"
             ],
             "scripts": [],
@@ -56,17 +62,30 @@
                   "maximumError": "5mb"
                 }
               ]
+            },
+            "hmr": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.hmr.ts"
+                }
+              ]
             }
           }
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "sblog:build"
+            "browserTarget": "sblog:build",
+            "hmrWarning": false
           },
           "configurations": {
             "production": {
               "browserTarget": "sblog:build:production"
+            },
+            "hmr": {
+              "hmr": true,
+              "browserTarget": "sblog:build:hmr"
             }
           }
         },
